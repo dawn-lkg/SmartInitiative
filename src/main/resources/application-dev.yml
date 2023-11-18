@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/my_blog
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      maxRequestSize: 300MB
+      maxFileSize: 100MB
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+  activemq:
+    brokerUrl: tcp://localhost:61616
+  jms:
+    template:
+      default-destination: itheima
+
+upload:
+  path: E:/path/blog/
+  chunk: E:/path/chunk/

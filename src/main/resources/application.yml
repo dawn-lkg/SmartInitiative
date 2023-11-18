@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      maxFileSize: 1000MB
+      maxRequestSize: 1GB
+mybatis-plus:
+  mapper-locations: classpath*:com/example/project/**/xml/*.xml
+  globalConfig:
+    dbConfig:
+      logicDeleteField: deleted
+      logicDeleteValue: 1
+      logicNotDeleteValue: 0
+  configuration:
+    mapUnderscoreToCamelCase: true
+    cacheEnabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

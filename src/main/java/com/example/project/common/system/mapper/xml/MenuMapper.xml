@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.project.common.system.mapper.MenuMapper">
+
+    <select id="listMenuByUserId" resultType="com.example.project.common.system.entity.Menu">
+        SELECT DISTINCT
+        *
+        FROM
+        sys_menu
+        WHERE
+        id IN (
+        SELECT
+        menu_id
+        FROM
+        sys_role_menu
+        WHERE
+        role_id IN (
+        SELECT
+        a.role_id
+        FROM
+        sys_user_role AS a
+        LEFT JOIN sys_role AS b ON a.role_id = b.id
+        WHERE
+        b.STATUS in (0,2)
+        AND a.user_id = #{userId}
+        ))
+        <if test="menuTypeList!=null and menuTypeList.size()>0">
+            AND menu_type in
+            <foreach collection="menuTypeList" separator="," open="(" close=")" item="item">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="listMenuByRoleId" resultType="com.example.project.common.system.entity.Menu">
+        SELECT DISTINCT *
+        FROM sys_menu
+        WHERE id IN (
+            SELECT menu_id
+            FROM sys_role_menu
+            WHERE role_id = #{roleId}
+        )
+    </select>
+    <select id="listRel" resultType="com.example.project.common.system.entity.Menu">
+        SELECT DISTINCT
+        *
+        FROM
+        sys_menu
+        WHERE
+        id IN (
+        SELECT
+        menu_id
+        FROM
+        sys_role_menu
+        WHERE
+        role_id IN (
+        SELECT
+        a.role_id
+        FROM
+        sys_user_role AS a
+        LEFT JOIN sys_role AS b ON a.role_id = b.id
+        WHERE
+        b.STATUS in (0,2)
+        <if test="param.userId!=null">
+            AND a.user_id = #{userId}
+        </if>
+        ))
+        <if test="param.menuTypeList!=null and param.menuTypeList.size()>0">
+            AND menu_type in
+            <foreach collection="param.menuTypeList" separator="," open="(" close=")" item="item">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+</mapper>
