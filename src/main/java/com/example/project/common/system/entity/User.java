@@ -93,6 +93,7 @@ public class User implements UserDetails {
      */
     private Date updateTime;
 
+
     /**
      * 是否删除，0表示正常，1表示删除
      */

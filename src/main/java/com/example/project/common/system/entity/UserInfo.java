@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,4 +39,20 @@ public class UserInfo implements Serializable {
      * 用户姓名（昵称）
      */
     private String nickname;
+    /**
+     * 性别 0男 1女
+     */
+    private String sex;
+    /**
+     * 手机号
+     */
+    private String phoneNumber;
+    /**
+     * 用户邮箱
+     */
+    private String email;
+    /**
+     * 创建日期
+     */
+    private Date createTime;
 }

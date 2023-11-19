@@ -93,5 +93,7 @@ public class UserController extends BaseController {
         List<User> list = userService.list(lambdaQueryWrapper);
         return success(list);
     }
+
+
 }
 

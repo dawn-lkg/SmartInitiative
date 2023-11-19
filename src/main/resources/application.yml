@@ -16,3 +16,8 @@ mybatis-plus:
     mapUnderscoreToCamelCase: true
     cacheEnabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+token:
+  header: Authoiorization
+  expireTime: 30
+  secret: dawndawndawn
