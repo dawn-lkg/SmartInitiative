@@ -24,7 +24,6 @@ public class MainController extends BaseController {
     @Autowired
     UserService userService;
 
-    @OperationLog(module = "登录模块",operator = "登录")
     @PostMapping("/login")
     public Result login(@RequestBody User user){
 

@@ -8,6 +8,11 @@
         FROM
             `sys_operation_record` a
                 LEFT JOIN sys_user b ON b.id = a.userId
+        <where>
+            <if test="param.type!=null">
+                AND a.type=#{param.type}
+            </if>
+        </where>
         order by a.create_time desc
     </select>
 </mapper>

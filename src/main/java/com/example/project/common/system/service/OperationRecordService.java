@@ -27,5 +27,10 @@ public interface OperationRecordService extends IService<OperationRecord> {
      * @return
      */
     IPage<OperationRecordVo> listPageRel(OperationRecordParam param);
+
+    /**
+     * 记录登录日志
+     */
+    void recordLogin(String username,String status,String message,String module);
 }
 

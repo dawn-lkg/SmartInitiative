@@ -37,6 +37,8 @@ public class OperationRecordParam extends BaseParam {
     private String method;
     //操作方法
     private String os;
+    //操作类型 0正常操作 1登录操作
+    private String type;
     //浏览器类型
     private String browser;
     //ip地址

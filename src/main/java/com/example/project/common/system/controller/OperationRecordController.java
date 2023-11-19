@@ -3,6 +3,7 @@ package com.example.project.common.system.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.example.project.common.core.Constants;
 import com.example.project.common.core.web.BaseController;
 import com.example.project.common.core.web.Result;
 import com.example.project.common.system.param.OperationRecordParam;
@@ -26,8 +27,16 @@ public class OperationRecordController extends BaseController {
 
     @GetMapping("page")
     public Result<?> page(OperationRecordParam param){
+        param.setType(Constants.OPERATOR_TYPE_NORMAL);
         IPage<OperationRecordVo> operationRecordVoIPage = sysOperationRecordService.listPageRel(param);
         return success(operationRecordVoIPage);
+    }
+
+    @GetMapping("/loginOperator/page")
+    public Result<?> loginPage(OperationRecordParam param){
+        param.setType(Constants.OPERATOR_TYPE_LOGIN);
+        IPage<OperationRecordVo> operationRecordVoIPage = sysOperationRecordService.listPageRel(param);
+        return  success(operationRecordVoIPage);
     }
 
 }

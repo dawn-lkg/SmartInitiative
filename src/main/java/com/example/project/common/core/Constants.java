@@ -108,4 +108,22 @@ public class Constants {
      * 删除状态 正常
      */
     public static final String REMOVE_NORMAL="0";
+    /**
+     * 请求类型 post
+     */
+    public static final String REQUEST_TYPE_POST="POST";
+    /**
+     * 请求类型 GET
+     */
+    public static final String REQUEST_TYPE_GET="GET";
+
+    /**
+     * 操作类型 正常操作
+     */
+    public static final String OPERATOR_TYPE_NORMAL="0";
+    /**
+     * 操作类型 登录操作
+     */
+    public static final String OPERATOR_TYPE_LOGIN="1";
+
 }

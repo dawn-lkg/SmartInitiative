@@ -79,6 +79,11 @@ public class OperationRecord extends Model<OperationRecord> {
     private String status;
 
     /**
+     * 操作类型 0正常操作 1登录操作
+     */
+    private String type;
+
+    /**
      * 创建时间
      */
     private Date createTime;
