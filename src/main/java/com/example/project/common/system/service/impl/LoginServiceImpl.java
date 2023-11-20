@@ -35,15 +35,15 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException("账号不能为空");
         }
         User byUsername = userService.getByUsername(user.getUsername());
-        redisCache.setCacheObject("loginUser:"+byUsername.getId(),byUsername);
         if(byUsername==null){
             operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_FAIL,"账号不存在",this.getClass().getName());
             throw new BusinessException("账号不存在");
         }
-        if(!SecurityUtils.matchesPassword(byUsername.getPassword(),user.getPassword())){
+        if(!SecurityUtils.matchesPassword(user.getPassword(),byUsername.getPassword())){
             operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_FAIL,"密码错误",this.getClass().getName());
             throw new BusinessException("密码错误");
         }
+        redisCache.setCacheObject("loginUser:"+byUsername.getId(),byUsername);
         String jwt= JwtUtil.createJWT(String.valueOf(byUsername.getId()));
         operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_SUCCESS,"登录成功",this.getClass().getName());
         return jwt;
