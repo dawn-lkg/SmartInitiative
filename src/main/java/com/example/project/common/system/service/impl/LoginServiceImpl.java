@@ -5,6 +5,7 @@ import com.example.project.common.core.Constants;
 import com.example.project.common.core.exception.BusinessException;
 import com.example.project.common.core.utils.JwtUtil;
 import com.example.project.common.core.utils.RedisCache;
+import com.example.project.common.core.utils.SecurityUtils;
 import com.example.project.common.system.entity.User;
 import com.example.project.common.system.service.LoginService;
 import com.example.project.common.system.service.OperationRecordService;
@@ -39,17 +40,12 @@ public class LoginServiceImpl implements LoginService {
             operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_FAIL,"账号不存在",this.getClass().getName());
             throw new BusinessException("账号不存在");
         }
-        if(!comparePassword(byUsername.getPassword(),user.getPassword())){
+        if(!SecurityUtils.matchesPassword(byUsername.getPassword(),user.getPassword())){
             operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_FAIL,"密码错误",this.getClass().getName());
             throw new BusinessException("密码错误");
         }
         String jwt= JwtUtil.createJWT(String.valueOf(byUsername.getId()));
         operationRecordService.recordLogin(user.getUsername(), Constants.SYSTEM_RECORD_SUCCESS,"登录成功",this.getClass().getName());
         return jwt;
-    }
-
-    @Override
-    public Boolean comparePassword(String dbPassword, String inputPassword) {
-        return passwordEncoder.matches(inputPassword,dbPassword);
     }
 }

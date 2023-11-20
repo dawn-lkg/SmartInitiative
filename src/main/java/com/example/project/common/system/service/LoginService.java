@@ -13,11 +13,4 @@ public interface LoginService {
      * @return jwt
      */
     String login(User user);
-    /**
-     * 匹配密码是否正确
-     * @param dbPassword 数据库密码
-     * @param inputPassword 输入密码
-     * @return
-     */
-    Boolean comparePassword(String dbPassword,String inputPassword);
 }
