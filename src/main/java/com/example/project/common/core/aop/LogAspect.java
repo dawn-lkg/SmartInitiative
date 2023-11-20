@@ -97,7 +97,7 @@ public class LogAspect {
         //记录当前登录用户
         User user=getLoginUser();
         if(Objects.nonNull(user)){
-            operationRecord.setUserid(user.getId());
+            operationRecord.setUsername(user.getUsername());
         }
         //记录请求地址、请求方式、ip
         HttpServletRequest request= HttpContextUtils.getHttpServletRequest();

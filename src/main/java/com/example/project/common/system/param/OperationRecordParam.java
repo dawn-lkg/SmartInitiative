@@ -22,7 +22,7 @@ public class OperationRecordParam extends BaseParam {
     @TableId(type = IdType.AUTO)
     private String id;
     //用户名
-    private String userid;
+    private String username;
     //操作耗时
     private Long time;
     //操作模块

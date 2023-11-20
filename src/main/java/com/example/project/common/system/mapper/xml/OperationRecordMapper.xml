@@ -3,11 +3,9 @@
 <mapper namespace="com.example.project.common.system.mapper.OperationRecordMapper">
     <select id="selectPageRel" resultType="com.example.project.common.system.vo.OperationRecordVo">
         SELECT
-            a.*,
-            b.nickname
+            a.*
         FROM
             `sys_operation_record` a
-                LEFT JOIN sys_user b ON b.id = a.userId
         <where>
             <if test="param.type!=null">
                 AND a.type=#{param.type}

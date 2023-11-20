@@ -18,9 +18,7 @@ public class OperationRecordVo implements Serializable {
     @TableId(type = IdType.AUTO)
     private String id;
     //用户名
-    private String userid;
-    //用户昵称
-    private String nickname;
+    private String username;
     //操作耗时
     private Long time;
     //操作模块

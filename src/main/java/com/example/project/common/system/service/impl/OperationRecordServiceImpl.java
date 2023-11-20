@@ -52,7 +52,6 @@ public class OperationRecordServiceImpl extends ServiceImpl<OperationRecordMappe
         String ip = IpUtils.getIpAddr();
         String osName = userAgent.getOperatingSystem().getName();
         String browser = userAgent.getBrowser().getName();
-        User user = userService.getByUsername(username);
         OperationRecord operationRecord = new OperationRecord();
         operationRecord.setBrowser(browser);
         operationRecord.setIp(ip);
@@ -61,7 +60,7 @@ public class OperationRecordServiceImpl extends ServiceImpl<OperationRecordMappe
         operationRecord.setTime(0L);
         operationRecord.setDescription(message);
         operationRecord.setStatus(status);
-        operationRecord.setUserid(user.getId());
+        operationRecord.setUsername(username);
         operationRecord.setType(Constants.OPERATOR_TYPE_LOGIN);
         operationRecord.setModule("登录");
         operationRecord.setMethod(method);

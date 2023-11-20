@@ -26,7 +26,7 @@ public class OperationRecord extends Model<OperationRecord> {
     /**
      * 用户名
      */
-    private String userid;
+    private String username;
 
     /**
      * 操作耗时
