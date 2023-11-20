@@ -6,6 +6,7 @@ package com.example.project.common.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.project.common.core.aop.OperationLog;
 import com.example.project.common.core.exception.BusinessException;
+import com.example.project.common.core.utils.RedisCache;
 import com.example.project.common.core.web.BaseController;
 import com.example.project.common.core.web.Result;
 import com.example.project.common.system.dto.UserDto;
@@ -13,6 +14,7 @@ import com.example.project.common.system.entity.User;
 import com.example.project.common.system.param.UserParam;
 import com.example.project.common.system.service.FileService;
 import com.example.project.common.system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,6 +100,13 @@ public class UserController extends BaseController {
     @PutMapping("/info")
     public Result<?> updateUserInfo(@RequestBody User user){
         return success(userService.updateUserInfo(user));
+    }
+
+    @OperationLog(module = "用户",operator = "修改密码")
+    @PutMapping("/updatePwd")
+    public Result<?> updatePassword(String oldPassword,String newPassword){
+        userService.updatePassword(oldPassword,newPassword);
+        return success("修改密码成功");
     }
 
 }

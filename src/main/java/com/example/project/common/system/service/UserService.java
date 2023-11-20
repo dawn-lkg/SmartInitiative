@@ -60,5 +60,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     User updateUserInfo(User user);
+
+    /**
+     * 修改密码
+     * @param oldPassword
+     * @param newPassword
+     */
+    void updatePassword(String oldPassword,String newPassword);
 }
 

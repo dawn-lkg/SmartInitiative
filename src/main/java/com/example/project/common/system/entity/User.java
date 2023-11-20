@@ -41,6 +41,7 @@ public class User implements UserDetails {
     /**
      * 用户密码
      */
+    @JsonIgnore
     private String password;
 
     /**

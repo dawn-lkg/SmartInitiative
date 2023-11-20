@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.project.common.core.Constants;
 import com.example.project.common.core.exception.BusinessException;
+import com.example.project.common.core.utils.RedisCache;
+import com.example.project.common.core.utils.SecurityUtils;
 import com.example.project.common.system.dto.UserDto;
 import com.example.project.common.system.entity.Role;
 import com.example.project.common.system.entity.UserInfo;
@@ -46,8 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserRoleService userRoleService;
     @Autowired
-    @Lazy
-    private PasswordEncoder passwordEncoder;
+    RedisCache redisCache;
     @Override
     public User getByUsername(String username) {
         LambdaQueryWrapper<User> lambdaQueryWrapper=new LambdaQueryWrapper<>();
@@ -91,7 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         BeanUtils.copyProperties(userDto,user);
         String password = user.getPassword();
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(SecurityUtils.encryptPassword(password));
         if(!save(user)){
             throw new BusinessException("保存用户失败");
         }
@@ -145,6 +146,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException("修改用户信息失败");
         }
         return user;
+    }
+
+    @Override
+    public void updatePassword(String oldPassword, String newPassword) {
+        User loginUser = SecurityUtils.getLoginUser();
+        if(!SecurityUtils.matchesPassword(oldPassword,loginUser.getPassword())){
+            throw new BusinessException("修改密码失败,旧密码错误");
+        }
+        if(SecurityUtils.matchesPassword(newPassword,loginUser.getPassword())){
+            throw new BusinessException("修改密码失败,新密码不能和旧密码相同");
+        }
+        //更新密码
+        boolean update = lambdaUpdate().set(User::getPassword, SecurityUtils.encryptPassword(newPassword)).update();
+        if(!update){
+            throw new BusinessException("更新密码失败");
+        }
+        //更新缓存
+        redisCache.setCacheObject("loginUser:"+loginUser.getId(),loginUser.getUsername());
     }
 
 
