@@ -53,5 +53,12 @@ public interface UserService extends IService<User> {
      * @param userId
      */
     void deleteUser(String userId);
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    User updateUserInfo(User user);
 }
 

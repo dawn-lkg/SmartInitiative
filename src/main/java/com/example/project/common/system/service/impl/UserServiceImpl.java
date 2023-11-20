@@ -108,6 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateUser(UserDto userDto) {
         User user=new User();
         BeanUtils.copyProperties(userDto,user);
@@ -127,6 +128,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userRoleService.saveBatch(userRoles);
     }
 
+
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteUser(String userId) {
@@ -134,6 +137,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException("删除用户失败");
         }
         userRoleService.deleteUserRole(userId);
+    }
+
+    @Override
+    public User updateUserInfo(User user) {
+        if(!updateById(user)){
+            throw new BusinessException("修改用户信息失败");
+        }
+        return user;
     }
 
 

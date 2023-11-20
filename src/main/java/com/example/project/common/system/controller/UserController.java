@@ -94,6 +94,11 @@ public class UserController extends BaseController {
         return success(list);
     }
 
+    @OperationLog(module = "用户",operator = "修改用户信息")
+    @PutMapping("/info")
+    public Result<?> updateUserInfo(@RequestBody User user){
+        return success(userService.updateUserInfo(user));
+    }
 
 }
 
