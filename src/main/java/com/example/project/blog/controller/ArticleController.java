@@ -3,6 +3,7 @@ package com.example.project.blog.controller;
 
 
 import com.example.project.blog.entity.Article;
+import com.example.project.blog.param.ArticleParam;
 import com.example.project.blog.service.ArticleService;
 import com.example.project.common.core.aop.OperationLog;
 import com.example.project.common.core.web.BaseController;
@@ -24,10 +25,10 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
 
     @OperationLog(module = "博客模块",operator = "获取所有模块")
-    @GetMapping("list")
+    @GetMapping("page")
     //@Cacheable(cacheNames = "articleList")
-    public Result<?> list(){
-        return success(articleService.list());
+    public Result<?> page(ArticleParam param){
+        return success(articleService.pageRel(param));
     }
 
     @OperationLog(module = "博客模块",operator = "新增博客")
@@ -35,6 +36,19 @@ public class ArticleController extends BaseController {
     public Result<?> save(@RequestBody Article article){
         articleService.save(article);
         return success("新增成功");
+    }
+
+    @OperationLog(module = "博客模块",operator = "修改博客")
+    @PutMapping
+    public Result<?> update(@RequestBody Article article){
+        articleService.updateById(article);
+        return success("新增成功");
+    }
+
+    @OperationLog(module = "博客模块",operator = "查询博客")
+    @GetMapping("{id}")
+    public Result<?> getArticleById(@PathVariable("id") Integer id){
+        return success(articleService.getByIdRel(id));
     }
 
 }

@@ -3,8 +3,8 @@ spring:
     active: dev
   servlet:
     multipart:
-      maxFileSize: 1000MB
-      maxRequestSize: 1GB
+      maxFileSize: 5000MB
+      maxRequestSize: 5000MB
 mybatis-plus:
   mapper-locations: classpath*:com/example/project/**/xml/*.xml
   globalConfig:

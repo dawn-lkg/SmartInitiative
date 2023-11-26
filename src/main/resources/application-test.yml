@@ -5,10 +5,6 @@ spring:
     password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-  servlet:
-    multipart:
-      maxRequestSize: 1GB
-      maxFileSize: 1GB
   redis:
     host: 127.0.0.1
     port: 6379

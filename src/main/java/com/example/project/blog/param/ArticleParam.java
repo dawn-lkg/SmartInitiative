@@ -1,22 +1,25 @@
-package com.example.project.blog.entity;
+package com.example.project.blog.param;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.example.project.common.core.web.BaseParam;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 /**
- * (Article)表实体类
- *
- * @author clm
- * @since 2023-09-17 13:50:54
+ * @author chenliming
+ * @date 2023/11/25 19:40
  */
+
 @Data
 @Accessors(chain = true)
-@TableName("blog_article")
-public class Article extends Model<Article> {
+@EqualsAndHashCode(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ArticleParam extends BaseParam {
     //主键id
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -52,11 +55,4 @@ public class Article extends Model<Article> {
     private Date updateTime;
     //逻辑删除 0正常 1删除
     private Integer deleted;
-
-    @TableField(exist = false)
-    private String categoryName;
-
-    @TableField(exist = false)
-    private String createName;
 }
-

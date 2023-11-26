@@ -13,6 +13,7 @@ import com.example.project.common.core.web.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,16 @@ public class CategoryController extends BaseController {
         lambdaQueryWrapper.like(Objects.nonNull(param.getName()),Category::getName,param.getName());
         Page<Category> page = categoryService.page(new Page<>(param.getPageNum(),param.getPageSize()));
         return success(page);
+    }
+
+    @OperationLog(module = "博客分类模块",operator = "查询所有")
+    @GetMapping("/list")
+    public Result<?> list(CategoryParam param){
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>(Category.class)
+                .eq(Objects.nonNull(param.getId()),Category::getId,param.getId())
+                .like(Objects.nonNull(param.getName()),Category::getName,param.getName());
+        List<Category> list = categoryService.list(categoryLambdaQueryWrapper);
+        return success(list);
     }
 
     @OperationLog(module = "博客分类模块",operator = "保存博客分类")
