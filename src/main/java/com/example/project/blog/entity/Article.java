@@ -45,7 +45,7 @@ public class Article extends Model<Article> {
     //发布时间
     private Date publishTime;
     //创建人
-    private Integer createBy;
+    private String createBy;
     //创建时间
     private Date createTime;
     //更新时间

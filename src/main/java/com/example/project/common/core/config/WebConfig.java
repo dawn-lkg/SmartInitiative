@@ -15,6 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
     private String basePath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("images/**").addResourceLocations("file:"+basePath);
+        registry.addResourceHandler("images/**","files/**").addResourceLocations("file:"+basePath);
     }
 }

@@ -34,6 +34,7 @@ public class ArticleController extends BaseController {
     @OperationLog(module = "博客模块",operator = "新增博客")
     @PostMapping
     public Result<?> save(@RequestBody Article article){
+        article.setCreateBy(getLoginUserId());
         articleService.save(article);
         return success("新增成功");
     }

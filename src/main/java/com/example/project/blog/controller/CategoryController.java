@@ -65,5 +65,14 @@ public class CategoryController extends BaseController {
         return success("修改博客成功");
     }
 
+    @OperationLog(module = "博客分类模块",operator = "删除博客分类")
+    @DeleteMapping("{id}")
+    public Result<?> remove(@PathVariable("id") Integer id){
+        if(!categoryService.removeById(id)){
+            return fail();
+        }
+        return success();
+    }
+
 }
 

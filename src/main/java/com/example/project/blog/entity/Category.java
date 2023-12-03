@@ -17,7 +17,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@SuppressWarnings("serial")
 @TableName("blog_category ")
 public class Category extends Model<Category> {
     /**
