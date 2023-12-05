@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.UUID;
 
 /**
@@ -39,7 +41,7 @@ public class FileServiceImpl implements FileService {
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
-        String fileUrl=String.format("http://%s:%s%s/%s", IpUtils.getIpAddr(),port,filePath,fileName);
+        String fileUrl=String.format("http://%s:%s%s/%s", IpUtils.getHostIp(),port,filePath,fileName);
         return fileUrl;
     }
 }
