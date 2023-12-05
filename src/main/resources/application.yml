@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: dev
   servlet:
     multipart:
       maxFileSize: 5000MB
@@ -21,3 +21,5 @@ token:
   header: Authoiorization
   expireTime: 30
   secret: dawndawndawn
+file:
+  path: /files

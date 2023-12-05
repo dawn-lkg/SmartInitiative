@@ -1,6 +1,7 @@
 package com.example.project.common.system.service.impl;
 
 import com.example.project.common.core.exception.BusinessException;
+import com.example.project.common.core.utils.IpUtils;
 import com.example.project.common.system.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,11 @@ import java.util.UUID;
 @Service("FileService")
 public class FileServiceImpl implements FileService {
     @Value("${upload.path}")
-    private String ImageBase;
+    private String fileUploadPath;
+    @Value("${file.path}")
+    private String filePath;
+    @Value("${server.port}")
+    private String port;
     @Override
     public String uploadFile(MultipartFile file) {
         if(file.isEmpty()){
@@ -26,14 +31,15 @@ public class FileServiceImpl implements FileService {
         String suffix = originalFilename.substring(originalFilename.lastIndexOf('.'));
         String fileName = UUID.randomUUID() + suffix;
         try{
-            File storageDirectory = new File(ImageBase);
+            File storageDirectory = new File(fileUploadPath);
             if (!storageDirectory.exists()) {
                 storageDirectory.mkdirs();
             }
-            file.transferTo( new File(ImageBase + fileName));
+            file.transferTo( new File(fileUploadPath + fileName));
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
-        return fileName;
+        String fileUrl=String.format("http://%s:%s%s/%s", IpUtils.getIpAddr(),port,filePath,fileName);
+        return fileUrl;
     }
 }
