@@ -24,6 +24,8 @@ public class FileServiceImpl implements FileService {
     private String filePath;
     @Value("${server.port}")
     private String port;
+    @Value(("${file.url}"))
+    private String url;
     @Override
     public String uploadFile(MultipartFile file) {
         if(file.isEmpty()){
@@ -41,7 +43,7 @@ public class FileServiceImpl implements FileService {
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
-        String fileUrl=String.format("http://%s:%s%s/%s", IpUtils.getHostIp(),port,filePath,fileName);
+        String fileUrl=String.format("%s:%s%s/%s",url,port,filePath,fileName);
         return fileUrl;
     }
 }
